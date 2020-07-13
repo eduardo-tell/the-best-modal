@@ -1,5 +1,5 @@
 {
-  "name": "styles-tell",
+  "name": "Modal",
   "version": "1.0.0",
   "description": "Biblioteca de estilos",
   "main": "gulpfile.js",
@@ -10,7 +10,7 @@
     "@babel/core": "7.9.6",
     "babel-preset-env": "^1.7.0",
     "browser-sync": "^2.26.7",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-babel": "8.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^4.0.2",
