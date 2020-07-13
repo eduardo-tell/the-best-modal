@@ -1,0 +1,76 @@
+
+// Padrão 7-1
+// Referêmcia: https://sass-guidelin.es/
+// sass/ 
+// | 
+// |– base/ 
+// |   |– _reset.scss       # Reset/normalize 
+// |   |– _typography.scss  # Typography rules 
+// |   ...                  # Etc… 
+// | 
+// |– components/ 
+// |   |– _buttons.scss     # Buttons 
+// |   |– _carousel.scss    # Carousel 
+// |   |– _cover.scss       # Cover 
+// |   |– _dropdown.scss    # Dropdown 
+// |   |– _navigation.scss  # Navigation 
+// |   ...                  # Etc… 
+// | 
+// |– helpers/ 
+// |   |– _variables.scss   # Sass Variables 
+// |   |– _functions.scss   # Sass Functions 
+// |   |– _animation.scss   # Sass Animations
+// |   |– _helpers.scss     # Class & placeholders helpers 
+// | 
+// |– layout/ 
+// |   |– _grid.scss        # Grid system 
+// |   |– _header.scss      # Header 
+// |   |– _footer.scss      # Footer 
+// |   |– _sidebar.scss     # Sidebar 
+// |   |– _forms.scss       # Forms 
+// |   ...                  # Etc… 
+// | 
+// |– pages/ 
+// |   |– _home.scss        # Estilos esoecificos da Home 
+// |   |– _contact.scss     # Estilos esoecificos para contact
+// |   ...                  # Etc… 
+// | 
+// |– themes/ 
+// |   |– _theme.scss       # Default theme 
+// |   |– _admin.scss       # Admin theme 
+// |   ...                  # Etc… 
+// | 
+// |– vendors/ 
+// |   |– _bootstrap.scss   # Bootstrap 
+// |   |– _jquery-ui.scss   # jQuery UI 
+// |   ...                  # Etc… 
+// | 
+// | 
+// `– main.scss             # Arquivo principal
+
+// Helpers
+@import
+	'helpers/variables',
+	'helpers/animation',
+	'helpers/utils';
+
+
+// Base
+@import 
+	'base/typography',
+	'base/global';
+
+
+// Components
+@import 
+	'components/buttons';
+
+
+// layout
+@import 
+	'layout/header',
+	'layout/footer',
+	'layout/forms';
+
+
+// Pages

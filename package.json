@@ -1,21 +1,32 @@
 {
-  "name": "Modal",
+  "name": "the-best-gulp",
   "version": "1.0.0",
-  "description": "Biblioteca de estilos",
-  "main": "gulpfile.js",
-  "author": "Eduardo Tell",
-  "license": "ISC",
-  "dependencies": {},
+  "description": "Um gulp para JS Eficiente",
+  "main": "gulpfile.babel.js",
   "devDependencies": {
-    "@babel/core": "7.9.6",
-    "babel-preset-env": "^1.7.0",
+    "@babel/core": "^7.10.2",
+    "@babel/plugin-transform-runtime": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/register": "^7.10.1",
+    "@babel/runtime": "7.0.0-beta.55",
+    "babel-preset-es2015": "^6.24.1",
     "browser-sync": "^2.26.7",
     "gulp": "^4.0.2",
-    "gulp-babel": "8.0.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-babel-minify": "^0.5.1",
+    "gulp-browserify": "^0.5.1",
     "gulp-concat": "^2.6.1",
-    "gulp-sass": "^4.0.2",
     "gulp-strip-debug": "^3.0.0",
-    "gulp-uglify": "^3.0.2",
-    "gulp-watch": "^5.0.1"
-  }
+    "gulp-uglify": "^3.0.2"
+  },
+  "dependencies": {
+    "gulp-imagemin": "^7.1.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-sass": "^4.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eduardo Tell",
+  "license": "ISC"
 }
