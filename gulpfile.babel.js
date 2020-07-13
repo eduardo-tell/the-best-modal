@@ -14,13 +14,14 @@ exports.sass = () => (
 );
 
 exports.scripts = () => (
-	gulp.src('./src/js/main.js')
+
+	gulp.src(['./src/js/components/*.js', './src/js/main.js'])
 	// .pipe(stripDebug())
     .pipe(concat('scripts.min.js'))
-	.pipe(babel())
-	.pipe(browserify({
-		insertGlobals : true
-	}))
+	// .pipe(babel())
+	// .pipe(browserify({
+	// 	insertGlobals : true
+	// }))
     .pipe(gulp.dest('./dist/js'))
 );
 

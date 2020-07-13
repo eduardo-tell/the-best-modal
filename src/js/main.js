@@ -1,4 +1,2 @@
-import { start } from './components/list';
-
-if (1 > 2) start()
-
+const modal = new Modal();
+modal.start()
