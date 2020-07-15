@@ -1,57 +1,74 @@
+/**
+ * ------------------------------------------------------------------------
+ * Variaveis
+ * ------------------------------------------------------------------------
+ */
+
+const main = document.getElementsByTagName('main')[0];
+const conteudo = '';
+const tipoDeConteudo = '';
+
+/**
+ * ------------------------------------------------------------------------
+ * Definicao da Classe
+ * ------------------------------------------------------------------------
+ */
+
 class Modal {
-	teste () {
-		console.log('teste');
-	}
 
-	abre (tipoDeConteudo) {
-		desfoque()
-		requisicao(tipoDeConteudo)
+	abre (data) {
+		// this.desfoque()
+		this.requisicao(data)
 
-		var conteudo = document.querySelector(tipoDeConteudo)[0];
-		conteudo.classList.add('abre')
+		this.conteudo = document.querySelectorAll('#' + data)[0]
+		this.conteudo.classList.add('abre')
 	}
 
 	fecha () {
-		modal.desfoque()
+		this.desfoque()
 
-		var conteudo = document.querySelector('#modal > section')[0];
-		conteudo.classList.add('abre')
+		this.conteudo = document.querySelectorAll('#modal > section')[0];
+		this.conteudo.classList.add('abre')
 	}
 
 	desfoque () {
-		main.classList.toggle('blur')
+		this.main.classList.toggle('blur')
 	}
 
-	requisicao (tipoDeConteudo) {
-		var alvo, httpRequest;
-	
-		alvo = document.getElementById("alvo");
-		modalContent = document.createElement('div');
-		document.getElementById("ajaxButton").addEventListener('click', makeRequest);
-	
-		function makeRequest() {
-			httpRequest = new XMLHttpRequest();
+	requisicao (data) {
+		var url = ''
+		const httpRequest = new XMLHttpRequest();
+		var alvo = document.getElementById("modal")
+		document.getElementById("ajaxButton").addEventListener('click', makeRequest());
 		
+	
+		function makeRequest() {			
+			console.log('Inicia make request');
+
 			if (!httpRequest) {
 				alert('Giving up :( Cannot create an XMLHTTP instance');
 				return false;
 			}
-			httpRequest.onreadystatechange = alertContents();
-			alvo = 'modal/' + tipoDeConteudo + '.html'
-			httpRequest.open('GET', alvo);
+			url = 'modal/' + data + '.html'
+			httpRequest.open('GET', url);
 			httpRequest.send();
+			httpRequest.onreadystatechange = alertContents();
 		}
 	
 		function alertContents () {
-			if (httpRequest.readyState === XMLHttpRequest.DONE) {
-				if (httpRequest.status === 200) {
-					modalContent.innerHTML = httpRequest.responseText;
-					alvo.appendChild(modalContent.firstChild);
-					modal.abre.mostraConteudo();
-				} else {
-					alert('There was a problem with the request.');
+			console.log('Inicia alert contents');
+			var modalContent = document.createElement('div');
+
+			setTimeout(() => {
+				if (httpRequest.readyState === XMLHttpRequest.DONE) {
+					if (httpRequest.status === 200) {
+						modalContent.innerHTML = httpRequest.responseText;
+						alvo.appendChild(modalContent.firstChild);
+					} else {
+						alert('There was a problem with the request.');
+					}
 				}
-			}
+			}, 500);
 		}
 	}
 }
