@@ -17,7 +17,6 @@ class Modal {
 		this.main = document.getElementsByTagName('main')[0];
 	}
 
-
 	abre(data) {
 
 		// Verifica se ja esta aberto
@@ -65,19 +64,40 @@ class Modal {
 
 	conteudoModal(conteudoEscolhido) {
 
-		if (conteudoExiste(conteudoEscolhido)) {
+		// Verifica se o conteudo já esta pronto para ser exibido
+		if (existeConteudo(conteudoEscolhido)) {
+			
+			removeOutrosModaisExistentes()
 			return true
 		} else {
 			// Requisita conteudo
 			this.requisicao(conteudoEscolhido, this)
 
 			// Monta botao de fechar
-			montaBotaoFechar(this)
+			if (!existeConteudo()) {
+				montaBotaoFechar(this)
+			}
+		}
+
+		function removeOutrosModaisExistentes() {
+			for (let index = 0; index < document.querySelectorAll('#modal > div').length; index++) {
+				const element = document.querySelectorAll('#modal > div')[index];				
+				if (!element.classList.contains(conteudoEscolhido)) {
+					element.style.display = 'none'
+				} else {
+					element.style.display = 'block'
+				}
+			}
 		}
 
 		// Verifica se conteudo existe
-		function conteudoExiste(conteudoEscolhido) {
-			return document.querySelectorAll('.' + conteudoEscolhido).length != 0
+		function existeConteudo(conteudoEscolhido) {
+			if (conteudoEscolhido) {
+				return document.querySelectorAll('.' + conteudoEscolhido).length != 0
+			} else {
+				return document.querySelectorAll('#modal > div').length != 0
+			}
+			
 		}
 
 		function montaBotaoFechar(alvo) {
