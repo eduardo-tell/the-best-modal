@@ -18,44 +18,33 @@ class Modal {
 	}
 
 
-	abre (data) {
+	abre(data) {
 
 		// Verifica se ja esta aberto
-		if ( this.modal.classList.contains('aberto') ) {
+		if (this.modal.classList.contains('aberto')) {
 
 			console.log('Ops! Isto não foi desenvolvido!');
 
-			// Remove conteudo exibido
+			// // Remove conteudo exibido
 			// this.removeConteudo()
 
-			// Requisita novo conteudo
+			// // Requisita novo conteudo
 			// this.requisicao(data)
 
 		} else {
-			// Requisita conteudo
-			this.requisicao(data)
+			// Verifica se conteudo já existe
+			if (this.conteudoModal(data)) {
 
-			// Adiciona desfoquer e escurecimento ao conteudo
-			this.desfoque()
+				// Adiciona desfoquer e escurecimento ao conteudo
+				this.desfoque()
 
-			// Monta botão fechar
-			var botaoFechar = document.createElement('button');
-			botaoFechar.innerHTML = '<i class="">x</i>'
-			botaoFechar.classList.add('fecha-modal')
-			this.modal.appendChild(botaoFechar)
-
-			// Adiciona funcionalidade ao botao
-			const botoesFechar = document.querySelectorAll('.fecha-modal');
-			botoesFechar.forEach(botao => botao.addEventListener('click', () => {
-				this.fecha()
-			}))
-
-			// Exibe modal
-			this.modal.classList.add('aberto')
+				// Exibe modal
+				this.modal.classList.add('aberto')
+			}
 		}
 	}
 
-	fecha () {
+	fecha() {
 		console.log('Inicia: fecha');
 
 		this.desfoque()
@@ -68,21 +57,55 @@ class Modal {
 		document.querySelector('#' + this.modal + '> div').remove()
 	}
 
-	desfoque () {
+	desfoque() {
 		console.log('Inicia: desfoque');
 
 		this.main.classList.toggle('blur')
 	}
 
-	requisicao (data) {
+	conteudoModal(conteudoEscolhido) {
+
+		if (conteudoExiste(conteudoEscolhido)) {
+			return true
+		} else {
+			// Requisita conteudo
+			this.requisicao(conteudoEscolhido, this)
+
+			// Monta botao de fechar
+			montaBotaoFechar(this)
+		}
+
+		// Verifica se conteudo existe
+		function conteudoExiste(conteudoEscolhido) {
+			return document.querySelectorAll('.' + conteudoEscolhido).length != 0
+		}
+
+		function montaBotaoFechar(alvo) {
+			// Monta botão fechar
+			var botaoFechar = document.createElement('button');
+			botaoFechar.innerHTML = '<i class="">x</i>'
+			botaoFechar.classList.add('fecha-modal')
+			alvo.modal.appendChild(botaoFechar)
+
+			// Adiciona funcionalidade ao botao
+			const botoesFechar = document.querySelectorAll('.fecha-modal');
+			botoesFechar.forEach(botao => botao.addEventListener('click', el => {
+				alvo.fecha()
+			}))
+
+			return botaoFechar
+		}
+	}
+
+	requisicao(data, alvo) {
 		console.log('Inicia: requisicao');
 
 		var modal = this.modal;
 		var url = ''
 		const httpRequest = new XMLHttpRequest();
-		requisita();		
-	
-		function requisita() {			
+		requisita();
+
+		function requisita() {
 			console.log('Inicia: requisita');
 
 			if (!httpRequest) {
@@ -95,8 +118,8 @@ class Modal {
 			httpRequest.send();
 			httpRequest.onreadystatechange = aplicaConteudo();
 		}
-	
-		function aplicaConteudo () {
+
+		function aplicaConteudo() {
 			console.log('Inicia: aplica conteudo');
 
 			var modalContent = document.createElement('div');
@@ -106,6 +129,8 @@ class Modal {
 					if (httpRequest.status === 200) {
 						modalContent.innerHTML = httpRequest.responseText;
 						modal.appendChild(modalContent.firstChild);
+
+						alvo.abre(data)
 					} else {
 						alert('There was a problem with the request.');
 					}
