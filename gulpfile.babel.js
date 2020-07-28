@@ -1,10 +1,10 @@
-import gulp from 'gulp';
-import sass from 'gulp-sass';
-import babel from 'gulp-babel';
-import concat from 'gulp-concat';
-import stripDebug from 'gulp-strip-debug';
-import browserSync from "browser-sync";
-import browserify from 'gulp-browserify'
+const gulp = require('gulp');
+const sass = require('gulp-sass');
+const babel = require('gulp-babel');
+const concat = require('gulp-concat');
+const stripDebug = require('gulp-strip-debug');
+const browserSync = require('browser-sync');
+const browserify = require('gulp-browserify');
 
 exports.sass = () => (
     gulp.src('./src/scss/**/**')

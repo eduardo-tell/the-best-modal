@@ -35,7 +35,7 @@ class Modal {
 			// Requisita conteudo
 			this.requisicao(data)
 
-			// Verifica se conteudo e diferente do exibido
+			// Adiciona desfoquer e escurecimento ao conteudo
 			this.desfoque()
 
 			// Monta botão fechar
@@ -44,13 +44,11 @@ class Modal {
 			botaoFechar.classList.add('fecha-modal')
 			this.modal.appendChild(botaoFechar)
 
-			for (let index = 0; index < document.querySelectorAll('.fecha-modal').length; index++) {
-				const element = document.querySelectorAll('.fecha-modal')[index];
-				element.addEventListener('click', this.fecha(), false)
-			}
-			// document.querySelectorAll('.fecha-modal').forEach(element => {
-			// 	element.addEventListener('click', this.fecha(), false)
-			// });
+			// Adiciona funcionalidade ao botao
+			const botoesFechar = document.querySelectorAll('.fecha-modal');
+			botoesFechar.forEach(botao => botao.addEventListener('click', () => {
+				this.fecha()
+			}))
 
 			// Exibe modal
 			this.modal.classList.add('aberto')
