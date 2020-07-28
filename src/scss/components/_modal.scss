@@ -1,0 +1,28 @@
+#modal {
+    &:not(.aberto) {
+        display: none;
+    }
+
+    &.aberto {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: 0;
+        background: #0000008a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        > div {
+            border: 1px solid #fff;
+
+            @media (min-width: 375px) and (min-height: 375px) {
+                min-width: 375px;
+                min-height: 375px;
+            }
+        }
+    }
+}
+

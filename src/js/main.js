@@ -1,1 +1,1 @@
-const modal = new Modal();
+const modal = new Modal('modal');
