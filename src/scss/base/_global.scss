@@ -1,3 +1,49 @@
+*,
+*:after,
+*:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+body,
+html,
+main {
+	width: 100%;
+	height: 100%;
+	font-size: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.clearfix:before,
+.clearfix:after {
+	content: " ";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both;
+}
+
 body {
-	font-family: 'Arial';
+	font-family: "Lato", Calibri, Arial, sans-serif;
+}
+
+main.center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	color: #fff;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background: #1c2027;
+	padding: 5px;
+	font-size: 12px;
+	text-align: center;
 }

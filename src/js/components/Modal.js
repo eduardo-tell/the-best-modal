@@ -17,7 +17,7 @@ class Modal {
 		this.main = document.getElementsByTagName('main')[0];
 	}
 
-	abre(data) {
+	abre = (data) => {
 
 		// Verifica se ja esta aberto
 		if (this.modal.classList.contains('aberto')) {
@@ -31,131 +31,131 @@ class Modal {
 			// this.requisicao(data)
 
 		} else {
-			// Verifica se conteudo já existe
-			if (this.conteudoModal(data)) {
-
-				// Adiciona desfoquer e escurecimento ao conteudo
-				this.desfoque()
-
-				// Exibe modal
-				this.modal.classList.add('aberto')
-			}
+			this.modal.conteudoEscolhido = data
+			this.montaModal()
 		}
 	}
 
-	fecha() {
-		console.log('Inicia: fecha');
+	fecha = () => {
+
+		console.log('Inicia: fecha...');
 
 		this.desfoque()
-		this.modal.classList.remove('aberto')
+		this.modal.classList.remove('md-show')
 	}
 
-	removeConteudo() {
-		console.log('Inicia: remove conteudo');
+	removeConteudo = () => {
+
+		console.log('Inicia: removeConteudo...');
 
 		document.querySelector('#' + this.modal + '> div').remove()
 	}
 
-	desfoque() {
-		console.log('Inicia: desfoque');
+	desfoque = () => {
+
+		console.log('Inicia: desfoque...');
 
 		this.main.classList.toggle('blur')
 	}
 
-	conteudoModal(conteudoEscolhido) {
+	exibeModal = () => {
+		// Adiciona desfoquer e escurecimento ao conteudo
+		this.desfoque()
 
-		// Verifica se o conteudo já esta pronto para ser exibido
-		if (existeConteudo(conteudoEscolhido)) {
-			
-			removeOutrosModaisExistentes()
-			return true
-		} else {
-			// Requisita conteudo
-			this.requisicao(conteudoEscolhido, this)
+		// Exibe modal
+		setTimeout(function(){ this.modal.classList.add('md-show') }, 100);
+	}
 
-			// Monta botao de fechar
-			if (!existeConteudo()) {
-				montaBotaoFechar(this)
+	montaModal = () => {
+		const montaBotaoFechar = () => {
+
+			console.log('Inicia: montaBotaoFechar...');
+
+			if (!document.querySelectorAll(".md-overlay").length) {
+				const overlay = document.createElement('div');
+				overlay.classList.add("md-overlay")
+				this.modal.parentNode.insertBefore(overlay, this.modal.nextSibling);
 			}
-		}
 
-		function removeOutrosModaisExistentes() {
-			for (let index = 0; index < document.querySelectorAll('#modal > div').length; index++) {
-				const element = document.querySelectorAll('#modal > div')[index];				
-				if (!element.classList.contains(conteudoEscolhido)) {
-					element.style.display = 'none'
-				} else {
-					element.style.display = 'block'
+			// Monta botão fechar
+			if (!document.querySelectorAll(".fecha-modal").length) {
+				var botaoFechar = document.createElement('button');
+				botaoFechar.innerHTML = 'Fechar'
+				botaoFechar.classList.add('btn', 'fecha-modal')
+				this.modal.after(botaoFechar);
+
+				// Adiciona funcionalidade ao botao
+				const botoesFechar = document.querySelectorAll('.fecha-modal');
+
+				for (let index = 0; index < botoesFechar.length; index++) {
+					const element = botoesFechar[index];
+					element.addEventListener('click', () => {
+						this.fecha()
+					})
 				}
 			}
+
+			return this.conteudoModal()
 		}
 
+		montaBotaoFechar()
+	}
+
+	conteudoModal = () => {
+
+		console.log('Inicia: conteudoModal...');
+
 		// Verifica se conteudo existe
-		function existeConteudo(conteudoEscolhido) {
-			if (conteudoEscolhido) {
-				return document.querySelectorAll('.' + conteudoEscolhido).length != 0
+		const existeConteudo = () => {
+
+			console.log('Inicia: existeConteudo...');
+
+			if (this.modal.conteudoEscolhido) {
+				return document.querySelectorAll('.' + this.modal.conteudoEscolhido).length != 0
 			} else {
 				return document.querySelectorAll('#modal > div').length != 0
 			}
 			
 		}
 
-		function montaBotaoFechar(alvo) {
-			// Monta botão fechar
-			var botaoFechar = document.createElement('button');
-			botaoFechar.innerHTML = '<i class="">x</i>'
-			botaoFechar.classList.add('fecha-modal')
-			alvo.modal.appendChild(botaoFechar)
-
-			// Adiciona funcionalidade ao botao
-			const botoesFechar = document.querySelectorAll('.fecha-modal');
-			botoesFechar.forEach(botao => botao.addEventListener('click', el => {
-				alvo.fecha()
-			}))
-
-			return botaoFechar
-		}
-	}
-
-	requisicao(data, alvo) {
-		console.log('Inicia: requisicao');
-
-		var modal = this.modal;
-		var url = ''
-		const httpRequest = new XMLHttpRequest();
-		requisita();
-
-		function requisita() {
-			console.log('Inicia: requisita');
+		const requisicao = () => {
+	
+			console.log('Inicia: requisicao...');
+	
+			var url = ''
+			const httpRequest = new XMLHttpRequest();
+	
+			const aplicaConteudo = () => {
+				var contaueod = document.createElement('div');
+				contaueod.innerHTML = httpRequest.responseText;
+				this.modal.appendChild(contaueod.firstChild);
+				this.conteudoModal(this.modal.conteudoEscolhido)
+			}
 
 			if (!httpRequest) {
 				alert('Giving up :( Cannot create an XMLHTTP instance');
 				return false;
 			}
 
-			url = 'modal/' + data + '.html'
+			url = 'modal/' + this.modal.conteudoEscolhido + '.html'
 			httpRequest.open('GET', url);
 			httpRequest.send();
-			httpRequest.onreadystatechange = aplicaConteudo();
+
+			httpRequest.onreadystatechange = () => {
+				if (httpRequest.readyState === XMLHttpRequest.DONE) {
+					httpRequest.status === 200 ? aplicaConteudo(this.modal.conteudoEscolhido) : alert('There was a problem with the request.');
+				}
+			};
+	
 		}
 
-		function aplicaConteudo() {
-			console.log('Inicia: aplica conteudo');
+		if (existeConteudo()) {
 
-			var modalContent = document.createElement('div');
+			this.exibeModal()
 
-			setTimeout(() => {
-				if (httpRequest.readyState === XMLHttpRequest.DONE) {
-					if (httpRequest.status === 200) {
-						modalContent.innerHTML = httpRequest.responseText;
-						modal.appendChild(modalContent.firstChild);
-
-						alvo.abre(data)
-					} else {
-						alert('There was a problem with the request.');
-					}
-				}
-			}, 500);
+		} else {
+			// Requisita conteudo
+			requisicao()
 		}
 	}
 }
