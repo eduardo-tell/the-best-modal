@@ -13,30 +13,32 @@ class Modal {
 	*/
 
 	constructor(alvo) {
-		this.modal = document.querySelectorAll('#' + alvo)[0];
-		this.main = document.getElementsByTagName('main')[0];
+		this.modal = document.querySelectorAll('#' + alvo)[0]
+		this.main = document.getElementsByTagName('main')[0]
+		this.modal.alvo = alvo
 	}
 
-	abre = (data) => {
-
+	abre (data) {
 		// Verifica se ja esta aberto
+		this.modal.conteudoEscolhido = data
+
 		if (this.modal.classList.contains('aberto')) {
 
 			console.log('Ops! Isto não foi desenvolvido!');
 
-			// // Remove conteudo exibido
-			// this.removeConteudo()
-
 			// // Requisita novo conteudo
-			// this.requisicao(data)
+			this.conteudoModal()
 
 		} else {
-			this.modal.conteudoEscolhido = data
 			this.montaModal()
 		}
 	}
 
-	fecha = () => {
+	isHidden (el) {
+    return (el.offsetParent === null)
+	}
+
+	fecha () {
 
 		console.log('Inicia: fecha...');
 
@@ -44,29 +46,34 @@ class Modal {
 		this.modal.classList.remove('md-show')
 	}
 
-	removeConteudo = () => {
+	EscondeConteudos () {
+		console.log('Inicia: EscondeConteudos...');
 
-		console.log('Inicia: removeConteudo...');
-
-		document.querySelector('#' + this.modal + '> div').remove()
+		document.querySelectorAll("#modal > div").forEach(element => {
+			element.style.display = "none"
+		}); 
 	}
 
-	desfoque = () => {
-
+	desfoque () {
 		console.log('Inicia: desfoque...');
 
 		this.main.classList.toggle('blur')
 	}
 
-	exibeModal = () => {
+	exibeModal () {
+		this.EscondeConteudos()
+
 		// Adiciona desfoquer e escurecimento ao conteudo
 		this.desfoque()
 
 		// Exibe modal
-		setTimeout(function(){ this.modal.classList.add('md-show') }, 100);
+		setTimeout(function(){ 
+			this.modal.modal.classList.add('md-show') 
+			document.querySelector("." + this.modal.modal.conteudoEscolhido).style.display = null
+		}, 100);
 	}
 
-	montaModal = () => {
+	montaModal () {
 		const montaBotaoFechar = () => {
 
 			console.log('Inicia: montaBotaoFechar...');
@@ -101,7 +108,7 @@ class Modal {
 		montaBotaoFechar()
 	}
 
-	conteudoModal = () => {
+	conteudoModal () {
 
 		console.log('Inicia: conteudoModal...');
 
@@ -150,9 +157,7 @@ class Modal {
 		}
 
 		if (existeConteudo()) {
-
 			this.exibeModal()
-
 		} else {
 			// Requisita conteudo
 			requisicao()

@@ -17,9 +17,9 @@ exports.sass = () => (
 exports.scripts = () => (
 
 	gulp.src(['./src/js/components/*.js', './src/js/main.js'])
-	// .pipe(stripDebug())
+	.pipe(stripDebug())
 	.pipe(concat('scripts.min.js'))
-	// .pipe(babel())
+	.pipe(babel())
 	.pipe(gulp.dest('./dist/js'))
 );
 
