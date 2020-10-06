@@ -20,13 +20,10 @@ class Modal {
 
 	abre (data) {
 		
-		this.modal.conteudoEscolhido = data
+		this.conteudoEscolhido = data
 
 		// Verifica se ja esta aberto
-		if (this.modal.classList.contains('md-show')) {
-
-			console.log('Ops! Isto não foi desenvolvido!');
-
+		if ($("#modal").hasClass('md-show')) {
 			this.removeConteudo()
 
 			// // Requisita novo conteudo
@@ -42,25 +39,22 @@ class Modal {
 	}
 
 	fecha () {
-
 		console.log('Inicia: fecha...');
 
 		this.desfoque()
-		this.modal.classList.remove('md-show')
+		$("#modal").removeClass('md-show')
 	}
 
 	EscondeConteudos () {
 		console.log('Inicia: EscondeConteudos...');
 
-		document.querySelectorAll("#modal > div").forEach(element => {
-			element.style.display = "none"
-		}); 
+		$("#modal > div").hide()
 	}
 
 	desfoque () {
 		console.log('Inicia: desfoque...');
 
-		this.main.classList.toggle('blur')
+		$("main").addClass('blur')
 	}
 
 	exibeModal () {
@@ -70,9 +64,10 @@ class Modal {
 		this.desfoque()
 
 		// Exibe modal
-		setTimeout(function(){ 
-			$(this.modal).addClass('md-show') 
-			$("." + this.modal.conteudoEscolhido).show()
+		setTimeout(() => { 
+			$("#modal").addClass('md-show') 
+			console.log(this.conteudoEscolhido);
+			$("." + this.conteudoEscolhido).show()
 		}, 100);
 	}
 
@@ -120,8 +115,8 @@ class Modal {
 
 			console.log('Inicia: existeConteudo...');
 
-			if (this.modal.conteudoEscolhido) {
-				return $('.' + this.modal.conteudoEscolhido).length
+			if (this.conteudoEscolhido) {
+				return $('.' + this.conteudoEscolhido).length
 			} else {
 				return document.querySelectorAll('#modal > div').length != 0
 			}
@@ -140,16 +135,16 @@ class Modal {
 				return false;
 			}
 
-			url = 'modal/' + this.modal.conteudoEscolhido + '.html'
+			url = 'modal/' + this.conteudoEscolhido + '.html'
 			httpRequest.open('GET', url);
 			httpRequest.send();
 
 			httpRequest.onreadystatechange = () => {
 				if (httpRequest.readyState === XMLHttpRequest.DONE) {
 					if (httpRequest.status === 200 ) {
-						var contaueod = document.createElement('div');
-						contaueod.innerHTML = httpRequest.responseText;
-						this.modal.appendChild(contaueod.firstChild);
+						var content = document.createElement('div');
+						content.innerHTML = httpRequest.responseText;
+						$("#modal").append(content.firstChild);
 						this.conteudoModal()
 					} else {
 						alert('There was a problem with the request.')
