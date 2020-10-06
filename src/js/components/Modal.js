@@ -19,12 +19,15 @@ class Modal {
 	}
 
 	abre (data) {
-		// Verifica se ja esta aberto
+		
 		this.modal.conteudoEscolhido = data
 
-		if (this.modal.classList.contains('aberto')) {
+		// Verifica se ja esta aberto
+		if (this.modal.classList.contains('md-show')) {
 
 			console.log('Ops! Isto não foi desenvolvido!');
+
+			this.removeConteudo()
 
 			// // Requisita novo conteudo
 			this.conteudoModal()
@@ -34,8 +37,8 @@ class Modal {
 		}
 	}
 
-	isHidden (el) {
-    return (el.offsetParent === null)
+	removeConteudo() {
+		$("#modal > div").hide()
 	}
 
 	fecha () {
@@ -68,8 +71,8 @@ class Modal {
 
 		// Exibe modal
 		setTimeout(function(){ 
-			this.modal.modal.classList.add('md-show') 
-			document.querySelector("." + this.modal.modal.conteudoEscolhido).style.display = null
+			$(this.modal).addClass('md-show') 
+			$("." + this.modal.conteudoEscolhido).show()
 		}, 100);
 	}
 
@@ -118,7 +121,7 @@ class Modal {
 			console.log('Inicia: existeConteudo...');
 
 			if (this.modal.conteudoEscolhido) {
-				return document.querySelectorAll('.' + this.modal.conteudoEscolhido).length != 0
+				return $('.' + this.modal.conteudoEscolhido).length
 			} else {
 				return document.querySelectorAll('#modal > div').length != 0
 			}
@@ -131,13 +134,6 @@ class Modal {
 	
 			var url = ''
 			const httpRequest = new XMLHttpRequest();
-	
-			const aplicaConteudo = () => {
-				var contaueod = document.createElement('div');
-				contaueod.innerHTML = httpRequest.responseText;
-				this.modal.appendChild(contaueod.firstChild);
-				this.conteudoModal(this.modal.conteudoEscolhido)
-			}
 
 			if (!httpRequest) {
 				alert('Giving up :( Cannot create an XMLHTTP instance');
@@ -150,16 +146,23 @@ class Modal {
 
 			httpRequest.onreadystatechange = () => {
 				if (httpRequest.readyState === XMLHttpRequest.DONE) {
-					httpRequest.status === 200 ? aplicaConteudo(this.modal.conteudoEscolhido) : alert('There was a problem with the request.');
+					if (httpRequest.status === 200 ) {
+						var contaueod = document.createElement('div');
+						contaueod.innerHTML = httpRequest.responseText;
+						this.modal.appendChild(contaueod.firstChild);
+						this.conteudoModal()
+					} else {
+						alert('There was a problem with the request.')
+					}
 				}
 			};
-	
 		}
+
+		console.log(existeConteudo());
 
 		if (existeConteudo()) {
 			this.exibeModal()
 		} else {
-			// Requisita conteudo
 			requisicao()
 		}
 	}
