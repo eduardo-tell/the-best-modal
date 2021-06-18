@@ -12,11 +12,13 @@
     "browser-sync": "^2.26.7",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
+    "babel-register": "^6.26.0",
     "gulp-babel-minify": "^0.5.1",
     "gulp-browserify": "^0.5.1",
     "gulp-concat": "^2.6.1",
     "gulp-strip-debug": "^3.0.0",
-    "gulp-uglify": "^3.0.2"
+    "gulp-uglify": "^3.0.2",
+    "gulp-autoprefixer": "^7.0.1"
   },
   "dependencies": {
     "gulp-newer": "^1.4.0",
@@ -25,6 +27,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "browserslist": [
+    "> 1%",
+    "edge >= 15",
+    "ff >= 45",
+    "chrome >= 45",
+    "safari >= 7",
+    "opera >= 23",
+    "ios >= 7",
+    "android >= 4",
+    "bb >= 10"
+  ],
   "author": "Eduardo Tell",
   "license": "ISC"
 }

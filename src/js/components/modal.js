@@ -1,15 +1,15 @@
 var modal = {
 
 	/**
- * Função responsável em exibir modais
- * Para funcionar:
- * - É preciso no html ter onclick modal.modal.abre('MODALESCOLHIDO')"
- * - É preciso haver um div com o id "modal" juntamente com a classe "md-modal"
- * - É preciso haver um arquivo html com o mesmo "MODALESCOLHIDO" com um conteudo unico com a classe de nome 'MODALESCOLHIDO'
- *
- * @return	void
- * @author	Eduardo Tell
- */
+	 * Função responsável em exibir modais
+	 * Para funcionar:
+	 * - É preciso no html ter onclick modal.modal.abre('MODALESCOLHIDO')"
+	 * - É preciso haver um div com o id "modal" juntamente com a classe "md-modal"
+	 * - É preciso haver um arquivo html com o mesmo "MODALESCOLHIDO" com um conteudo unico com a classe de nome 'MODALESCOLHIDO'
+	 *
+	 * @return	void
+	 * @author	Eduardo Tell
+	*/
 	 
 	modal: {
 		abre: (data) => {

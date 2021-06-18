@@ -1,23 +1,22 @@
-const gulp = require('gulp');
-const sass = require('gulp-sass');
-const babel = require('gulp-babel');
-const concat = require('gulp-concat');
-// const stripDebug = require('gulp-strip-debug');
-const browserSync = require('browser-sync');
-const minify = require('gulp-babel-minify');
-const stripDebug = require('gulp-strip-debug');
+import gulp from 'gulp'
+import sass from 'gulp-sass'
+import babel from 'gulp-babel'
+import concat from 'gulp-concat'
+import browserSync from 'browser-sync'
+import autoprefix from "gulp-autoprefixer"
 
 exports.sass = () => (
     gulp.src('./src/scss/**/**')
-    .pipe(sass({outputStyle: 'compressed', errLogToConsole: true }))
+    .pipe(sass({outputStyle: "compressed",errLogToConsole: true,}))
+    .pipe(autoprefix())
     .pipe(concat('styles.min.css'))
     .pipe(gulp.dest('./dist/css'))
+    .pipe(browserSync.stream())
 );
 
 exports.scripts = () => (
 
 	gulp.src(['./src/js/components/*.js', './src/js/main.js'])
-	.pipe(stripDebug())
 	.pipe(concat('scripts.min.js'))
 	.pipe(babel())
 	.pipe(gulp.dest('./dist/js'))

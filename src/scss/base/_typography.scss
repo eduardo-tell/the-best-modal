@@ -1,12 +1,68 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+@font-face {
+    font-family: "Lato";
+    src: url("../../fonts/lato/Lato-Light.woff") format("woff");
+    font-weight: 200;
+    font-style: normal;
+}
 
 @font-face {
-	font-family: 'codropsicons';
-	src:url('../fonts/codropsicons/codropsicons.eot');
-	src:url('../fonts/codropsicons/codropsicons.eot?#iefix') format('embedded-opentype'),
-		url('../fonts/codropsicons/codropsicons.woff') format('woff'),
-		url('../fonts/codropsicons/codropsicons.ttf') format('truetype'),
-		url('../fonts/codropsicons/codropsicons.svg#codropsicons') format('svg');
-	font-weight: normal;
-	font-style: normal;
+    font-family: "Lato-Heavy";
+    src: url("../../fonts/lato/Lato-Heavy.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: url("../../fonts/lato/Lato-Italic.woff") format("woff");
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: url("../../fonts/lato/Lato-LightItalic.woff") format("woff");
+    font-weight: 200;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: url("../../fonts/lato/Lato-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: url("../../fonts/lato/Lato-Bold.woff") format("woff");
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: url("../../fonts/lato/Lato-BoldItalic.woff") format("woff");
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: url("../../fonts/lato/Lato-Black.woff") format("woff");
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: url("../../fonts/lato/Lato-BlackItalic.woff") format("woff");
+    font-weight: 900;
+    font-style: italic;
+}
+
+
+@font-face {
+    font-family: "Selima";
+    src: url("../../fonts/selima/selima.woff") format("woff");
 }
