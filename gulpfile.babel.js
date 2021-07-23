@@ -42,4 +42,4 @@ gulp.task('serve', () => {
     gulp.watch('./**/**/**').on('change', browserSync.reload);
 });
 
-gulp.task('default', gulp.series('watch'));
+gulp.task('default', gulp.series('serve'));
